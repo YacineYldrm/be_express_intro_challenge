@@ -9,12 +9,16 @@
 // - Zuletzt eine "Galerie"-Seite, auf der einige Bilder der Person oder ihrer Arbeiten zu finden sind.
 
 const express = require("express");
+const dotenv = require("dotenv");
 const app = express();
+
+dotenv.config();
+const PORT = process.env.PORT || 3000;
 
 app.use((req, _, next) => {
     console.log("New request: ", req.method, req.url);
     next();
-})
+});
 
 app.use(express.static("public"));
 
@@ -30,5 +34,4 @@ app.get("/api/work", (_, res) => {
     res.sendFile(`${__dirname}/work-list.json`);
 });
 
-const PORT = 8080;
 app.listen(PORT, () => console.log("Server is listening at port: ", PORT));
